@@ -18,6 +18,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             button.image = NSImage(named:NSImage.Name("StatusBarButtonImage"))
             button.action = #selector(printQuote(_:))
         }
+        
+        constructMenu()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {}
@@ -27,6 +29,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let quoteAuthor = "Baileys"
         
         print("\(quoteText) - \(quoteAuthor)")
+    }
+    
+    @objc func showPreferences(_ sender: Any?) {
+        print("Showing preferences")
+    }
+    
+    func constructMenu() {
+        let menu = NSMenu()
+        menu.addItem(NSMenuItem(title: "Switch Res",
+                                action: #selector(AppDelegate.showPreferences(_:)),
+                                keyEquivalent: "r"))
+        menu.addItem(NSMenuItem(title: "Preferences",
+                                action: #selector(AppDelegate.showPreferences(_:)),
+                                keyEquivalent: ","))
+        
+        menu.addItem(NSMenuItem.separator())
+        
+        menu.addItem(NSMenuItem(title: "Quit",
+                                action: #selector(NSApplication.terminate(_:)),
+                                keyEquivalent: "q"))
+        
+        statusItem.menu = menu
     }
 
 }
